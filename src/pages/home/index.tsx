@@ -2,7 +2,7 @@ import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LensIcon from "@mui/icons-material/Lens";
 import Navbar from "../../shared/navbar";
-import Banner from "../../images/banner.webp";
+
 import BannerSecond from "../../images/paralax.png";
 import ParalaxSecond from "../../images/secondParalax.png";
 import AnimatedImg from "../../images/3.webp";
@@ -10,6 +10,7 @@ import LastBanner from "../../images/lastBanner.webp";
 import { makeStyles } from "@mui/styles";
 import { sectionTree } from "./sections";
 import { Animate, AnimateKeyframes, AnimateGroup } from "react-simple-animate";
+import SectionOne from "./sectionOne";
 
 const useStyles: any = makeStyles({
   paralax: {
@@ -100,46 +101,8 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <Grid container spacing={2}>
-        <Grid
-          item
-          lg={6}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-          md={6}
-        >
-          <Typography variant="h3" component="div" width="45%" mt={10}>
-            YOUR HOME.
-          </Typography>
-          <Typography variant="h3" component="div" width="45%">
-            SMARTER.
-          </Typography>
-
-          <Typography variant="body1" component="div" width="45%" mt={7} mb={3}>
-            Control your home enviroment from the palm of your hand with EZ
-          </Typography>
-
-          <Typography variant="body1" component="div" width="45%" mb={6}>
-            <u>Learn More </u>
-          </Typography>
-          <Button
-            variant="contained"
-            className={classes.btn}
-          >
-            BUY NOW
-          </Button>
-        </Grid>
-        <Grid item lg={6} md={6}>
-          <img
-            src={Banner}
-            alt="banner"
-            style={{ width: "80%", height: "80%" }}
-          />
-        </Grid>
-      </Grid>
+      <SectionOne/>
+      
       <Box className={classes.paralax}>
         <Box className={classes.paralaxText}>
           <Typography variant="h3" component="div" mt={10}>
