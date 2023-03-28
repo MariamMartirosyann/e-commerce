@@ -18,7 +18,6 @@ const SectionOne = () => {
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
-  const isMediumScreen = useMediaQuery({ query: "(min-width: 900px)" });
 
   return (
     <Grid container spacing={2}>

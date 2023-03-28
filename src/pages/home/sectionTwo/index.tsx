@@ -56,7 +56,7 @@ const textItems = [
     text: "Add your electronic devices and control your home enviroment from anywhere",
   },
 ];
-const SectionSwo = () => {
+const SectionTwo = () => {
   const classes = useStyles();
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
@@ -109,4 +109,4 @@ const SectionSwo = () => {
   );
 };
 
-export default SectionSwo;
+export default SectionTwo;
