@@ -1,5 +1,5 @@
 import { useMediaQuery } from "react-responsive";
-import { Typography, Button, Grid, Box } from "@mui/material";
+import { Typography, Button, Grid} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Banner from "../../../images/banner.webp";
 
@@ -32,12 +32,13 @@ const SectionOne = () => {
           flexDirection: "column",
           alignItems: "center",
         }}
+        
       >
         <Typography
           variant={isLargeScreen ? "h3" : "h4"}
           component="div"
           width={isBigScreen ? "45%" : "60%"}
-          mt={isBigScreen ? "30px" : 0}
+          mt={10}
         >
           YOUR HOME.
         </Typography>

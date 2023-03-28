@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import Footer from "./shared/footer";
 import { theme } from "./theme";
 
-const  App= ()=> {
+const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -13,6 +13,6 @@ const  App= ()=> {
       </ThemeProvider>
     </>
   );
-}
+};
 
 export default App;

@@ -1,9 +1,6 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LensIcon from "@mui/icons-material/Lens";
 import Navbar from "../../shared/navbar";
-
-import BannerSecond from "../../images/paralax.png";
 import ParalaxSecond from "../../images/secondParalax.png";
 import AnimatedImg from "../../images/3.webp";
 import LastBanner from "../../images/lastBanner.webp";
@@ -11,35 +8,9 @@ import { makeStyles } from "@mui/styles";
 import { sectionTree } from "./sections";
 import { Animate, AnimateKeyframes, AnimateGroup } from "react-simple-animate";
 import SectionOne from "./sectionOne";
+import SectionSwo from "./sectionTwo";
 
 const useStyles: any = makeStyles({
-  paralax: {
-    position: "relative",
-    backgroundImage: `url(${BannerSecond})`,
-    width: "100%",
-    height: "120vh",
-    boxSizing: "border-box",
-    backgroundAttachment: "fixed",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    paddingBottom: "20px",
-  },
-  paralaxText: {
-    width: "40%",
-    marginLeft: "20%",
-    position: "absolute",
-    right: 0,
-    top: "10%",
-  },
-  paralaxPoints: {
-    marginBottom: "20px",
-    display: "flex",
-    flexDirection: "row",
-  },
-  arrow: {
-    margin: "10px",
-  },
   sectionTree: {
     width: "70%",
   },
@@ -102,48 +73,8 @@ const Home = () => {
     <div>
       <Navbar />
       <SectionOne/>
-      
-      <Box className={classes.paralax}>
-        <Box className={classes.paralaxText}>
-          <Typography variant="h3" component="div" mt={10}>
-            HOW
-          </Typography>
-          <Typography variant="h3" component="div">
-            IT WORKS
-          </Typography>
-          <Typography variant="body1" component="div" width="45%" mt={3} mb={3}>
-            Synchronising your home devices and managing them from your
-            smartphone has never been so EZ
-          </Typography>
-          <Box className={classes.paralaxPoints}>
-            <span className={classes.arrow}>
-              <ArrowForwardIosIcon fontSize="small" color="primary" />
-            </span>
-            <Typography variant="body1" component="div" width="35%">
-              Download the EZ app to your smart phone
-            </Typography>
-          </Box>
-
-          <Box className={classes.paralaxPoints}>
-            <span className={classes.arrow}>
-              <ArrowForwardIosIcon fontSize="small" color="primary" />
-            </span>
-            <Typography variant="body1" component="div" width="35%">
-              Connect EZ to your Internet router 
-            </Typography>
-          </Box>
-
-          <Box className={classes.paralaxPoints}>
-            <span className={classes.arrow}>
-              <ArrowForwardIosIcon fontSize="small" color="primary" />
-            </span>
-            <Typography variant="body1" component="div" width="35%">
-              ​Add your electronic devices and control your home enviroment from
-              anywhere
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
+      <SectionSwo/>
+     
       <Grid
         container
         className={classes.sectionTree}
