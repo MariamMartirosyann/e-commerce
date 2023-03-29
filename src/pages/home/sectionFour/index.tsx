@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useMediaQuery } from "react-responsive";
 import ParalaxSecond from "../../../images/secondParalax.png";
 
 const useStyles: any = makeStyles({
@@ -22,9 +23,14 @@ const useStyles: any = makeStyles({
 
 const SectionFour = () => {
   const classes = useStyles();
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
   return (
     <Box className={classes.paralaxSecond}>
-      <Typography variant="h3" component="div" color="white">
+      <Typography
+        variant={isSmallScreen ? "h5" : "h3"}
+        component="div"
+        color="white"
+      >
         FINE CURVES
       </Typography>
     </Box>

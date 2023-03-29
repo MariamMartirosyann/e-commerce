@@ -39,7 +39,7 @@ const SectionFive = () => {
               margin: "30px 0px 20px",
             }}
           >
-            <Typography variant="h5" component="div">
+            <Typography variant="h6" component="div">
               MINIMAL & SMART DESIGN
             </Typography>
           </Box>
@@ -94,7 +94,7 @@ const SectionFive = () => {
           </Grid>
         </Box>
       ) : (
-        <Box height="100vh" mb={15}>
+        <Box  mb={15}>
           <Typography variant="h3" component="div" mt={10} ml={25}>
             MINIMAL &
           </Typography>

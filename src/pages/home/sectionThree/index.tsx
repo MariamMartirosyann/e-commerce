@@ -29,7 +29,7 @@ const SectionThree = () => {
   return (
     <Grid
     container
-    width="60%"
+    width="70%"
     spacing={5}
     m=" 80px auto"
   >

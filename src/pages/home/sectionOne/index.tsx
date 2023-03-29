@@ -18,6 +18,7 @@ const SectionOne = () => {
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
+  const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
 
   return (
     <Grid container spacing={2}>
@@ -34,15 +35,15 @@ const SectionOne = () => {
         
       >
         <Typography
-          variant={isLargeScreen ? "h3" : "h4"}
+          variant={isLargeScreen ? "h3" : "h5"}
           component="div"
           width={isBigScreen ? "45%" : "60%"}
-          mt={10}
+          mt={isMediumScreen ? 0: 10}
         >
           YOUR HOME.
         </Typography>
         <Typography
-          variant={isLargeScreen ? "h3" : "h4"}
+          variant={isLargeScreen ? "h3" : "h5"}
           component="div"
           width={isBigScreen ? "45%" : "60%"}
         >

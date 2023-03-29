@@ -1,6 +1,7 @@
 import LastBanner from "../../../images/lastBanner.webp";
 import { makeStyles } from "@mui/styles";
 import { Box, Typography, Button, Grid} from "@mui/material";
+import { useMediaQuery } from "react-responsive";
 
 
 const useStyles: any = makeStyles({
@@ -9,7 +10,11 @@ const useStyles: any = makeStyles({
       color: "white",
       width: "45%",
     },
-   
+    btnSmall: {
+      background: "primary",
+      color: "white",
+      width: "80%",
+    },
     lastSection: {
       position: "relative",
     },
@@ -19,28 +24,37 @@ const useStyles: any = makeStyles({
       left: "12%",
       width: "40%",
     },
+    lastSectiontextSmall: {
+      position: "absolute",
+      top: "5%",
+      left: "12%",
+      width: "85%",
+    }
   });
 
 const SectionSix = () => {
 
     const classes = useStyles();
 
+    const isMediumScreen = useMediaQuery({ query: "(max-width: 1300px)" });
+    const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+
   return (
-    <Grid container className={classes.lastSection}>
+    <Box className={classes.lastSection} mt={15}>
         <img src={LastBanner} alt="last banner" width="100%" />
-        <Box className={classes.lastSectiontext}>
-          <Typography variant="h3" component="div" width="45%">
+        <Box className={isSmallScreen ? classes.lastSectiontextSmall : classes.lastSectiontext}>
+          <Typography variant={isMediumScreen ? "h6" : "h3"}  component="div" width="45%">
             LIFE IS EZ
           </Typography>
-          <Typography variant="body1" component="div" width="48%" mt={7} mb={7}>
+          <Typography variant="body1" component="div" width={isSmallScreen ? "80%" : "48%"} margin="5% 0">
             Your home is well prepared for your return, perfectly set to
             whatever makes you most comfortable
           </Typography>
-          <Button variant="contained" className={classes.btn}>
+          <Button variant="contained" className={isSmallScreen ? classes.btnSmall : classes.btn}>
             BUY NOW
           </Button>
         </Box>
-      </Grid>
+      </Box>
   )
 }
 
