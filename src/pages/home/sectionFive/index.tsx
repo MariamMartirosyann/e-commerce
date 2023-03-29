@@ -6,18 +6,6 @@ import { Box, Typography, Grid, Divider } from "@mui/material";
 import LensIcon from "@mui/icons-material/Lens";
 
 const useStyles: any = makeStyles({
-  btn: {
-    background: "primary",
-    color: "white",
-    width: "45%",
-  },
-
-  line: {
-    width: "100%",
-    height: "0.7px",
-    bgcolor: "black",
-    margin: "31% 0",
-  },
   row: {
     display: "flex",
     flexDirection: "row",
@@ -27,102 +15,81 @@ const useStyles: any = makeStyles({
 interface IFeature {
   id: number;
   text: string;
+  divider: boolean;
 }
+
 const features: IFeature[] = [
-  { id: 1, text: "Energy efficiancy indicators" },
-  { id: 2, text: "Conected devices indicators" },
-  { id: 3, text: "Sleek aluminum surface" },
-  { id: 4, text: "Colorful customizable interior" },
+  { id: 1, text: "Energy efficiancy indicators", divider: true },
+  { id: 2, text: "Conected devices indicators", divider: true },
+  { id: 3, text: "Sleek aluminum surface", divider: true },
+  { id: 4, text: "Colorful customizable interior", divider: false },
 ];
 
 const SectionFive = () => {
   const classes = useStyles();
-
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
-  const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
   const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
   return (
     <>
       {isMediumScreen ? (
         <Box>
-          <Typography variant="h5" component="div" margin="20px auto">
-            MINIMAL &
-          </Typography>
-          <Typography variant="h5" component="div" ml="45%">
-            SMART DESIGN
-          </Typography>
-          <Grid container width="100%" height="90vh" pl="14%" mt={5}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "30px 0px 20px",
+            }}
+          >
+            <Typography variant="h5" component="div">
+              MINIMAL & SMART DESIGN
+            </Typography>
+          </Box>
+          <Grid container width="100%" mb={5}>
+            <Grid item lg={6} md={6} xs={12}>
+              <img
+                src={AnimatedImg}
+                alt="animates image"
+                width="60%"
+                height="70%"
+                style={{ marginLeft: "20%", boxSizing: "border-box" }}
+              />
+            </Grid>
             <Grid item lg={6} md={6} xs={12}>
               {features.map((i: IFeature) => (
-                <Box
-                  sx={{ width: "100%", display: "flex", flexDirection: "row" }}
-                  key={i.id}
-                >
-                  
-                  <Typography variant="body1" component="div" margin="3% auto">
-                   {i.text}
-                  </Typography>
+                <Box sx={{ widows: "100%", margin: "2% 20%" }}>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                    key={i.id}
+                  >
+                    <Typography
+                      variant="body1"
+                      component="div"
+                      margin="3% auto"
+                    >
+                      {i.text}
+                    </Typography>
+                  </Box>
+                  {!!i.divider ? <Divider /> : null}
                 </Box>
               ))}
-
-              {/* <Box sx={{ width: "100%", display: "flex", flexDirection: "row" }}>
-              <Typography variant="body1" component="div" width="30%" mt="12%">
-                Conected devices indicators
-              </Typography>
 
               <Box
                 sx={{
                   width: "100%",
-                  height: "0.7px",
-                  bgcolor: "black",
-                  marginTop: "15%",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-              ></Box>
-            </Box>
-
-            <Box sx={{ width: "100%", display: "flex", flexDirection: "row" }}>
-            <Typography variant="body1" component="div" mt="12%" width="30%">
-              Sleek aluminum surface
-            </Typography>
-            <Box
-                sx={{
-                  width: "100%",
-                  height: "0.7px",
-                  bgcolor: "black",
-                  marginTop: "17%",
-                }}
-              ></Box>
-            </Box>
-            <Box sx={{ width: "100%", display: "flex", flexDirection: "row" }}>
-            <Typography variant="body1" component="div" mt="10%" width="35%">
-              Colorful customizable interior
-            </Typography>
-           
-            <Box
-                sx={{
-                  width: "100%",
-                  height: "0.7px",
-                  bgcolor: "black",
-                  marginTop: "15%",
-                }}
-              />
-            </Box> */}
-              <Typography variant="body1" component="div" mt="2%" width="35%">
+              >
                 <LensIcon sx={{ color: "#b3e5fc" }} />
                 <LensIcon sx={{ color: "#f48fb1" }} />
                 <LensIcon sx={{ color: "#fff9c4" }} />
                 <LensIcon sx={{ color: "#cfd8dc" }} />
                 <LensIcon />
                 <LensIcon sx={{ color: "#a1887f" }} />
-              </Typography>
-            </Grid>
-            <Grid item lg={6} md={6} xs={12} className={classes.animatedImg}>
-              <img
-                src={AnimatedImg}
-                alt="animates image"
-                width="100%"
-                height="100%"
-              />
+              </Box>
             </Grid>
           </Grid>
         </Box>
