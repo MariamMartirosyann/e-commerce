@@ -1,6 +1,9 @@
 import { Navigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
+import Cart from "../pages/cart";
 import Home from "../pages/home";
+import Shop from "../pages/shop";
+import Support from "../pages/support";
 
 import { ERoutes } from "./constants";
 
@@ -15,6 +18,18 @@ import { ERoutes } from "./constants";
               {
                 path: ERoutes.HOME,
                 element: <Home/>,
+              },
+              {
+                path: ERoutes.SUPPORT,
+                element: <Support/>,
+              },
+              {
+                path: ERoutes.SHOP,
+                element: <Shop/>,
+              },
+              {
+                path: ERoutes.CART,
+                element: <Cart/>,
               },
         {
           path: "*",

@@ -1,49 +1,55 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import { ERoutes } from "../../routes/constants";
+import { useState } from "react";
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact', 'Shop'];
+
+const navItems = [
+  { text: "Home", path: ERoutes.HOME },
+  { text: "Support", path: ERoutes.SUPPORT },
+  { text: "Shop", path: ERoutes.SHOP },
+  { text: "Cart", path: ERoutes.CART },
+];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        EZ
       </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+          <ListItem key={item.path} disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }}>
+              <Link to={item.path} style={{ textDecoration: "none", color:"black" }}>
+                <ListItemText primary={item.text} />
+              </Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -51,34 +57,54 @@ export default function DrawerAppBar(props: Props) {
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" color='secondary'>
+      <AppBar component="nav" color="secondary">
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
-        
+
           <Box
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color:"white", marginLeft:"100px" }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              color: "white",
+              marginLeft: "100px",
+            }}
           >
-            <Box sx={{border:"1px solid white",borderRadius:"5px", width:"40px", height:"35px",display:"flex",justifyContent:"center",alignItems:"center"}}> EZ</Box>
-           
+            <Box
+              sx={{
+                border: "1px solid white",
+                borderRadius: "5px",
+                width: "40px",
+                height: "35px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              EZ
             </Box>
-         
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          </Box>
+
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+              <Button key={item.path} sx={{ color: "#fff" }}>
+                <Link to={item.path} style={{ textDecoration: "none", color:"white" }}>
+                  {item.text}
+                </Link>
               </Button>
             ))}
           </Box>
@@ -95,8 +121,11 @@ export default function DrawerAppBar(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}

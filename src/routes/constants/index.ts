@@ -1,6 +1,8 @@
 export enum ERoutes {
   HOME = "/",
+  SUPPORT="support",
   SHOP="shop",
-  SHOP_ITEM="shop-item"
+  SHOP_ITEM="shop-item",
+  CART="cart"
  
 }
