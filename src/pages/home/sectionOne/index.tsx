@@ -21,7 +21,7 @@ const SectionOne = () => {
   const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} mt={2}>
       <Grid
         item
         lg={6}
@@ -79,7 +79,7 @@ const SectionOne = () => {
           BUY NOW
         </Button>
       </Grid>
-      <Grid item lg={6} md={6} xs={12}>
+      <Grid item lg={6} md={6} xs={12} mt={5}>
         <img src={Banner} alt="banner" className={isBigScreen? classes.banner : classes.bannerSmall} />
       </Grid>
     </Grid>
