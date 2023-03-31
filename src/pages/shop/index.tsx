@@ -1,12 +1,11 @@
-import { Animate, AnimateKeyframes } from "react-simple-animate";
+import { AnimateKeyframes } from "react-simple-animate";
 import { useMediaQuery } from "react-responsive";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import Item1 from "../../images/1.webp";
-import Item1Hover from "../../images/11.webp";
 import { useState } from "react";
-import { ERoutes } from "../../routes/constants";
 import { Link } from "react-router-dom";
+import { IItem } from "../../app/redux/interface";
+import { items } from "../../app/redux/constants";
 
 const useStyles: any = makeStyles({
   title: {
@@ -44,27 +43,6 @@ const useStyles: any = makeStyles({
     color: "black",
   },
 });
-
-interface IItem {
-  number: number;
-  src: string;
-  srcHover: string;
-}
-
-const items: IItem[] = [
-  {
-    number: 1,
-    src: Item1,
-    srcHover: Item1Hover,
-  },
-  { number: 2, src: Item1, srcHover: Item1Hover },
-  { number: 3, src: Item1, srcHover: Item1Hover },
-  { number: 4, src: Item1, srcHover: Item1Hover },
-  { number: 5, src: Item1, srcHover: Item1Hover },
-  { number: 6, src: Item1, srcHover: Item1Hover },
-  { number: 7, src: Item1, srcHover: Item1Hover },
-  { number: 8, src: Item1, srcHover: Item1Hover },
-];
 
 const Shop = () => {
   const [hoveredCart, setHoveredCart] = useState<number>(-1);
