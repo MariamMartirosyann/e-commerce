@@ -17,12 +17,18 @@ import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import { makeStyles } from "@mui/styles";
+import { useState } from "react";
 
 const useStyles: any = makeStyles({
   icons: {
     display: "flex",
     flexDirection: "row",
-    margin:"20px 12px"
+    margin: "20px 12px",
+  },
+  smallImageBox: {
+    width: "80px",
+    height: "80px",
+    border: "0.8px solid grey",
   },
 });
 
@@ -46,21 +52,29 @@ const ShopItem = () => {
   const itemsData = useSelector(selectItems);
 
   const classes = useStyles();
-
   const currentItem = itemsData.find(
     (item: IItem) => item.number === Number(number)
   );
 
+  const Images = [
+    { id: 1, src: currentItem?.src },
+    { id: 2, src: currentItem?.srcHover },
+  ];
+  const [image, setImage] = useState<string | undefined>(currentItem?.src);
+
+  const handleChangeImage = () => {
+    setImage(
+      image === currentItem?.src ? currentItem?.srcHover : currentItem?.src
+    );
+  };
+
   return (
-    <Grid container margin="10% auto" width="70%" spacing={4}>
+    <Grid container margin="3% auto" width="70%" spacing={4}>
       <Grid item lg={6} md={6} xs={12}>
         <Box width="100%" border="1px solid grey">
-          <img
-            src={currentItem?.src}
-            alt="item"
-            style={{ width: "80%", height: "70%" }}
-          />
+          <img src={image} alt="item" style={{ width: "80%", height: "70%" }} />
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -69,31 +83,12 @@ const ShopItem = () => {
             margin: "3% 5%",
           }}
         >
-          <Box>
-            {" "}
-            <img
-              src={currentItem?.src}
-              alt="item"
-              style={{
-                width: "80px",
-                height: "80px",
-                border: "0.8px solid grey",
-              }}
-            />
-          </Box>
-
-          <Box ml={1}>
-            {" "}
-            <img
-              src={currentItem?.srcHover}
-              alt="item"
-              style={{
-                width: "80px",
-                height: "80px",
-                border: "0.8px solid grey",
-              }}
-            />
-          </Box>
+          {Images.map((i: any) => (
+            <Box key={i.id} mr={2} onClick={handleChangeImage}>
+              {" "}
+              <img src={i?.src} alt="item" className={classes.smallImageBox} />
+            </Box>
+          ))}
         </Box>
         <Typography variant="body1" component="div" width="100%">
           I'm a product detail. I'm a great place to add more details about your
@@ -122,6 +117,7 @@ const ShopItem = () => {
               shrink: true,
             }}
             fullWidth
+            InputProps={{ inputProps: { min: 1 } }}
           />
         </Box>
 

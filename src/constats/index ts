@@ -1,5 +1,1 @@
-import { useMediaQuery } from 'react-responsive'
-
-  export const isBigScreen = useMediaQuery({ query: '(min-width: 1200px)' })
-  export const isMediumScreen = useMediaQuery({ query: '(min-width: 700px)' })
-  export const isSmallScreen=useMediaQuery({ query: '(max-width: 699px)' })
+export const onlyPositiveNumbers = /^[1-9]\d*$/;
