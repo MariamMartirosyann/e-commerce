@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectItems } from "../../app/redux/ItemSlice";
+import { selectItems } from "../../app/redux/slices/ItemSlice";
 import { IItem } from "../../app/redux/interface";
 import ItemAccordion from "./accardion";
 import { OverridableComponent } from "@mui/material/OverridableComponent";

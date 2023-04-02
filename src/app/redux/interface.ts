@@ -3,10 +3,25 @@ export interface IItemState {
   }
 
   export interface IItem {
+    //id:string,
     number: number;
     src: string;
     srcHover: string;
   }
-  export interface IState {
-    items:IItemState
+
+  export interface ICartItem{
+    id:any,
+    itemQuantity:number,
+    itemPrice:number
   }
+  export interface ICartState{
+    cartItems:ICartItem [],
+    cartTotalQuantity: number,
+    cartTotalAmount:number,
+  }
+
+  export interface IState {
+    items:IItemState,
+    cart:ICartState
+  }
+
