@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IItem } from "../../app/redux/interface";
 import { items } from "../../app/redux/constants";
+import RightDrawer from "../../shared/Drawer/rightDrawer";
+import Cart from "../cart";
 
 const useStyles: any = makeStyles({
   title: {
@@ -46,6 +48,7 @@ const useStyles: any = makeStyles({
 
 const Shop = () => {
   const [hoveredCart, setHoveredCart] = useState<number>(-1);
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const classes = useStyles();
 
@@ -61,6 +64,12 @@ const Shop = () => {
     setHoveredCart(-1);
   };
 
+  const handleOpenCartDrawer=()=>{
+    setDrawerOpen(true);
+  }
+const handleCloseCartDrawer=()=>{
+  setDrawerOpen(false);
+}
   return (
     <>
       <Box className={classes.title}>
@@ -129,6 +138,7 @@ const Shop = () => {
               </Typography>
               <Button
                 variant="contained"
+                onClick={handleOpenCartDrawer}
                 style={{
                   color: "white",
                   background: "primary",
@@ -141,7 +151,16 @@ const Shop = () => {
           </Grid>
         ))}
         <Grid item></Grid>
+
       </Grid>
+      <RightDrawer
+        open={isDrawerOpen}
+        setOpen={setDrawerOpen}
+        onClose={handleCloseCartDrawer}
+        title={` Cart`}
+      >
+        <Cart isDrawer={true}/>
+      </RightDrawer>
     </>
   );
 };
