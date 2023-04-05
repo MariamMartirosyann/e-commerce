@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "../../app/redux/slices/ItemSlice";
 import { IItem } from "../../app/redux/interface";
 import ItemAccordion from "./accardion";
@@ -18,6 +18,9 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
+import { addToCart } from "../../app/redux/slices/cartSlice";
+import RightDrawer from "../../shared/Drawer/rightDrawer";
+import Cart from "../cart";
 
 const useStyles: any = makeStyles({
   icons: {
@@ -50,10 +53,12 @@ const Icons = [
 const ShopItem = () => {
   const { number } = useParams();
   const itemsData = useSelector(selectItems);
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const classes = useStyles();
-  const currentItem = itemsData.find(
-    (item: IItem) => item.number === Number(number)
+  const dispatch = useDispatch();
+  const currentItem:IItem | undefined= itemsData?.find(
+    (item: IItem) => item.id === Number(number)
   );
 
   const Images = [
@@ -67,93 +72,122 @@ const ShopItem = () => {
       image === currentItem?.src ? currentItem?.srcHover : currentItem?.src
     );
   };
+ 
 
+  const handleAddToCart = (currentItem:IItem |undefined) => {
+    setDrawerOpen(true);
+    dispatch(addToCart(currentItem));
+  };
+
+
+  const handleCloseCartDrawer = () => {
+    setDrawerOpen(false);
+  };
   return (
-    <Grid container margin="3% auto" width="70%" spacing={4}>
-      <Grid item lg={6} md={6} xs={12}>
-        <Box width="100%" border="1px solid grey">
-          <img src={image} alt="item" style={{ width: "80%", height: "70%" }} />
-        </Box>
+    <>
+      <Grid container margin="3% auto" width="70%" spacing={4}>
+        <Grid item lg={6} md={6} xs={12}>
+          <Box width="100%" border="1px solid grey">
+            <img
+              src={image}
+              alt="item"
+              style={{ width: "80%", height: "70%" }}
+            />
+          </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            margin: "3% 5%",
-          }}
-        >
-          {Images.map((i: any) => (
-            <Box key={i.id} mr={2} onClick={handleChangeImage}>
-              {" "}
-              <img src={i?.src} alt="item" className={classes.smallImageBox} />
-            </Box>
-          ))}
-        </Box>
-        <Typography variant="body1" component="div" width="100%">
-          I'm a product detail. I'm a great place to add more details about your
-          product such as sizing, material, care instructions and cleaning
-          instructions.
-        </Typography>
-      </Grid>
-      <Grid item lg={5} md={5} xs={12}>
-        <Typography variant="h5" component="div">
-          EZ 0000{currentItem?.number}
-        </Typography>
-        <Typography variant="body2" component="div" mt={1}>
-          SKU: 000{currentItem?.number}
-        </Typography>
-        <Typography variant="body1" component="div" mt={3} mb={3}>
-          $200.00
-        </Typography>
-        <Box width="25%" margin="15px 0">
-          {" "}
-          <TextField
-            id="outlined-number"
-            label="Quantity"
-            type="number"
-            defaultValue={1}
-            InputLabelProps={{
-              shrink: true,
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              margin: "3% 5%",
             }}
-            fullWidth
-            InputProps={{ inputProps: { min: 1 } }}
-          />
-        </Box>
+          >
+            {Images.map((i: any) => (
+              <Box key={i.id} mr={2} onClick={handleChangeImage}>
+                {" "}
+                <img
+                  src={i?.src}
+                  alt="item"
+                  className={classes.smallImageBox}
+                />
+              </Box>
+            ))}
+          </Box>
+          <Typography variant="body1" component="div" width="100%">
+            I'm a product detail. I'm a great place to add more details about
+            your product such as sizing, material, care instructions and
+            cleaning instructions.
+          </Typography>
+        </Grid>
+        <Grid item lg={5} md={5} xs={12}>
+          <Typography variant="h5" component="div">
+            EZ 0000{currentItem?.id}
+          </Typography>
+          <Typography variant="body2" component="div" mt={1}>
+            SKU: 000{currentItem?.id}
+          </Typography>
+          <Typography variant="body1" component="div" mt={3} mb={3}>
+            ${currentItem?.price}.00
+          </Typography>
+          <Box width="25%" margin="15px 0">
+            {" "}
+            <TextField
+              id="outlined-number"
+              label="Quantity"
+              type="number"
+              defaultValue={1}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              InputProps={{ inputProps: { min: 1 } }}
+            />
+          </Box>
 
-        <Button
-          variant="contained"
-          fullWidth
-          style={{
-            background: "#44DBBD",
-            color: "white",
-            marginBottom: "10px",
-          }}
-        >
-          Add To Cart
-        </Button>
-        <Button
-          variant="contained"
-          fullWidth
-          style={{
-            background: "black",
-            color: "white",
-            marginBottom: "20px",
-          }}
-        >
-          Buy Now
-        </Button>
-        <ItemAccordion />
-        <Box className={classes.icons}>
-          {" "}
-          {Icons.map((i: IIcons) => (
-            <Box mr={1.5} key={i.id}>
-              {<i.icon fontSize="small" sx={{ color: `${i.color}` }} />}
-            </Box>
-          ))}
-        </Box>
+          <Button
+            onClick={() => handleAddToCart( currentItem )}
+            variant="contained"
+            fullWidth
+            style={{
+              background: "#44DBBD",
+              color: "white",
+              marginBottom: "10px",
+            }}
+          >
+            Add To Cart
+          </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            style={{
+              background: "black",
+              color: "white",
+              marginBottom: "20px",
+            }}
+          >
+            Buy Now
+          </Button>
+          <ItemAccordion />
+          <Box className={classes.icons}>
+            {" "}
+            {Icons.map((i: IIcons) => (
+              <Box mr={1.5} key={i.id}>
+                {<i.icon fontSize="small" sx={{ color: `${i.color}` }} />}
+              </Box>
+            ))}
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+      <RightDrawer
+        open={isDrawerOpen}
+        setOpen={setDrawerOpen}
+        onClose={handleCloseCartDrawer}
+        title={` Cart`}
+      >
+        <Cart isDrawer={true} />
+      </RightDrawer>
+    </>
   );
 };
 

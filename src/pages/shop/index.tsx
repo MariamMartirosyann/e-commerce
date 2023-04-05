@@ -8,6 +8,9 @@ import { IItem } from "../../app/redux/interface";
 import { items } from "../../app/redux/constants";
 import RightDrawer from "../../shared/Drawer/rightDrawer";
 import Cart from "../cart";
+import { useDispatch, useSelector } from "react-redux";
+import { selectItems } from "../../app/redux/slices/ItemSlice";
+import { addToCart } from "../../app/redux/slices/cartSlice";
 
 const useStyles: any = makeStyles({
   title: {
@@ -47,10 +50,12 @@ const useStyles: any = makeStyles({
 });
 
 const Shop = () => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const [hoveredCart, setHoveredCart] = useState<number>(-1);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-  const classes = useStyles();
+ 
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
@@ -70,6 +75,12 @@ const Shop = () => {
 const handleCloseCartDrawer=()=>{
   setDrawerOpen(false);
 }
+
+const handleAddToCart = (item:IItem) => {
+  setDrawerOpen(true);
+  dispatch(addToCart(item));
+
+};
   return (
     <>
       <Box className={classes.title}>
@@ -97,24 +108,24 @@ const handleCloseCartDrawer=()=>{
         {items.map((i: IItem) => (
           <Grid
             item
-            key={i.number}
+            key={i.id}
             md={6}
             xs={12}
             onMouseLeave={hideCartHandler}
-            onMouseEnter={() => showCartHandler(i.number)}
+            onMouseEnter={() => showCartHandler(i.id)}
           >
             <Box className={classes.item}>
               <Link
-                to={`/shop-item/${i.number}`}
+                to={`/shop-item/${i.id}`}
                 className={classes.textDecorationNone}
               >
                 <Box width="100%" sx={{ position: "relative" }}>
                   <img
-                    src={hoveredCart === i.number ? i.srcHover : i.src}
+                    src={hoveredCart === i.id ? i.srcHover : i.src}
                     alt="item"
                     style={{ width: "90%", height: "80%" }}
                   />
-                  {hoveredCart === i.number ? (
+                  {hoveredCart === i.id ? (
                     <AnimateKeyframes
                       iterationCount="1"
                       keyframes={[
@@ -131,14 +142,14 @@ const handleCloseCartDrawer=()=>{
                 </Box>
               </Link>
               <Typography variant="h6" component="div">
-                EZ 0000{i.number}
+                EZ 0000{i.id}
               </Typography>
               <Typography variant="body1" component="div" mb={2}>
-                $200.00
+                ${i.price}.00
               </Typography>
               <Button
                 variant="contained"
-                onClick={handleOpenCartDrawer}
+                onClick={()=>handleAddToCart(i)}
                 style={{
                   color: "white",
                   background: "primary",

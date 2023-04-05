@@ -1,6 +1,21 @@
-import { Box, Drawer, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { ReactNode } from "react";
+import { Box, Divider, Drawer, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { makeStyles } from "@mui/styles";
+import { useMediaQuery } from "react-responsive";
+
+const useStyles: any = makeStyles({
+  cartNavbar: {
+    width: "100%",
+    background: "black",
+    color: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    height: "100px",
+    padding: "6% 4% ",
+  },
+    
+});
 
 export interface IRightDrawerProps {
   open: boolean;
@@ -19,21 +34,30 @@ const RightDrawer = ({
   onClose,
   children,
 }: IRightDrawerProps) => {
+  const classes = useStyles();
   const handleClose = () => {
     setOpen(false);
     onClose?.();
   };
 
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 699px)" });
+
+  const SIDEBAR_WIDTH = 600;
+  const SIDEBAR_WIDTH_SMALL = 400;
   return (
     <Drawer anchor={"right"} open={open} onClose={handleClose}>
-      <Box p={2} width={RIGHT_SIDEBAR_WIDTH}>
-        <Box mt={2} mb={4} display="flex" justifyContent={"space-between"}>
-          <Typography variant="h6">{title}</Typography>
+      <Box width={isSmallScreen ?SIDEBAR_WIDTH_SMALL:SIDEBAR_WIDTH}>
+        <Box mb={4} className={classes.cartNavbar}>
+          <Typography variant="h6" ml="50%">{title}</Typography>
           <Box sx={{ cursor: "pointer" }}>
             <CloseIcon onClick={handleClose} />
           </Box>
         </Box>
         {children}
+        
+        <Box>  
+         
+        </Box>
       </Box>
     </Drawer>
   );

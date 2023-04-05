@@ -3,13 +3,13 @@ export interface IItemState {
   }
 
   export interface IItem {
-    //id:string,
-    number: number;
+    id: number;
     src: string;
     srcHover: string;
+    price:number
   }
 
-  export interface ICartItem{
+  export interface ICartItem extends  IItem{
     id:any,
     itemQuantity:number,
     itemPrice:number
