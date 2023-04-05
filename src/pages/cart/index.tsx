@@ -14,11 +14,9 @@ import {
   decreaseCart,
   clearCart,
   selectCartItems,
-  selectCartTotalAmount,
-  selectCartTotalQuantity,
 } from "../../app/redux/slices/cartSlice";
 import Button from "@mui/material/Button";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 const useStyles: any = makeStyles({
@@ -97,8 +95,7 @@ interface INumOrUn{
 const Cart = ({ isDrawer }: ICartComponent) => {
   const cartItemsData = useSelector(selectCartItems);
   console.log(cartItemsData, "cartItemsData");
-  const cartItemsTotalQuantity = useSelector(selectCartTotalQuantity);
-  const cartItemsTotalAmount = useSelector(selectCartTotalAmount);
+
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 699px)" });
 
@@ -128,6 +125,12 @@ const Cart = ({ isDrawer }: ICartComponent) => {
     dispatch(clearCart());
   };
 
+  // const itemsTotal=cartItemsData.map((i:ICartItem)=>{return i.price * i.itemQuantity})
+  // const itemTotal= (id:number)=>{
+  //  return  itemsTotal[id-1]
+  // }
+  // console.log(itemsTotal,itemTotal(2),"itemTotal")
+
   const totalAmount = useMemo(() => {
     const totalSum = cartItemsData.map((i:ICartItem) => {
       return i.itemQuantity * i.price;
@@ -139,6 +142,15 @@ const Cart = ({ isDrawer }: ICartComponent) => {
 
 
 
+  const ItemsDiscount=useMemo(() => {
+    const itemDiscount = cartItemsData.map((i:ICartItem) => {
+      const itemTotal= i.itemQuantity * i.price;
+      return  itemTotal>2000 ? 0.1 * itemTotal :0
+    });
+    return itemDiscount
+  ;
+  }, [cartItemsData]);
+
   const totalDiscount = useMemo(() => {
     const totalSum = cartItemsData.map((i:ICartItem) => {
       const total= i.itemQuantity * i.price;
@@ -147,11 +159,17 @@ const Cart = ({ isDrawer }: ICartComponent) => {
       }
      return
     });
+
     const sum = totalSum?.reduce((a:any, b:any) => a + b, 0 );
 
     return sum
   }, [cartItemsData]);
+  
 
+  const totalAmountWithDiscount =totalDiscount? totalAmount - totalDiscount : totalAmount
+;
+
+  
   return (
     <Grid container sx={{ width: "80%", margin: "1% auto" }} spacing={5}>
       <Grid item lg={isCartDrawer ? 12 : 8} md={isCartDrawer ? 12 : 8} xs={12}>
@@ -163,7 +181,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
 
         {cartItemsData.length ? (
           cartItemsData.map((i: ICartItem) => (
-            <Box className={classes.bigBox}>
+            <Box className={classes.bigBox} key={i.id}>
               {isCartDrawer ? (
                 <Box
                   onMouseOver={handleMouseOver}
@@ -235,8 +253,11 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                       </Box>
                     </Box>
                     <Box mt={1} ml={4}>
+                      <Typography variant="body1" component="div"><>
+                        ${i.price* i.itemQuantity}.00 </>
+                      </Typography>
                       <Typography variant="body1" component="div">
-                        ${i.price* i.itemQuantity}.00
+                       {i.price*i.itemQuantity > 2000 ? ` -$ ${i.price*i.itemQuantity *0.1}`  : null} 
                       </Typography>
                     </Box>
                     <Box mt={1} ml={3}>
@@ -271,21 +292,22 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                 ${totalAmount}.00
               </Typography>
             </Box>
-            {totalDiscount?(<Box className={classes.subtotal}>
+        
+            <Box className={classes.subtotal}>
               <Typography variant="body2" component="div" mb={2}>
                 Discount
               </Typography>
               <Typography variant="body2" component="div" mb={2}>
-                ${totalDiscount}.00
+                ${!isNaN(totalDiscount) ?  totalDiscount : 0}.00
               </Typography>
-            </Box>):null}
+            </Box>
             <Divider />
             <Box className={classes.subtotal} mt={1} mb={1}>
               <Typography variant="h6" component="div">
                 Total
               </Typography>
               <Typography variant="h6" component="div">
-                ${totalAmount}.00
+              ${totalDiscount? totalAmount - totalDiscount : totalAmount}.00
               </Typography>
             </Box>
             <Divider />
@@ -315,14 +337,14 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                 ${totalAmount}.00
               </Typography>
             </Box>
-            {totalDiscount?(<Box className={classes.subtotal}>
+            <Box className={classes.subtotal}>
               <Typography variant="body2" component="div" mb={2}>
                 Discount
               </Typography>
               <Typography variant="body2" component="div" mb={2}>
-                ${totalDiscount}.00
+                ${!isNaN(totalDiscount) ?  totalDiscount : 0}.00
               </Typography>
-            </Box>):null}
+            </Box>
             
             <Divider />
             <Box mt={3} mb={2} className={classes.subtotal}>
@@ -330,7 +352,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                 Total
               </Typography>
               <Typography variant="h6" component="div">
-                ${totalAmount}.00
+              ${totalAmountWithDiscount}.00
               </Typography>
             </Box>
             <Button

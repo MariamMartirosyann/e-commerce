@@ -6,13 +6,13 @@ export interface IItemState {
     id: number;
     src: string;
     srcHover: string;
-    price:number
+    price:number;
+  
   }
 
   export interface ICartItem extends  IItem{
-    id:any,
     itemQuantity:number,
-    itemPrice:number
+
   }
   export interface ICartState{
     cartItems:ICartItem [],
