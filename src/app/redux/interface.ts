@@ -16,8 +16,6 @@ export interface IItemState {
   }
   export interface ICartState{
     cartItems:ICartItem [],
-    cartTotalQuantity: number,
-    cartTotalAmount:number,
   }
 
   export interface IState {

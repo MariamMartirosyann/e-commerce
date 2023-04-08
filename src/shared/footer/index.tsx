@@ -14,12 +14,12 @@ import { makeStyles } from "@mui/styles";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 const useStyles: any = makeStyles({
-  btn: {
-    marginTop: "10%",
-    background: "primary",
-    color: "white",
-    width: "45%",
-  },
+  // btn: {
+  //   marginTop: "10%",
+  //   background: "primary",
+  //   color: "white",
+  //   width: "45%",
+  // },
   subscrption: {
     display: "flex",
     flexDirection: "column",
@@ -58,12 +58,12 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <Box p="5% 10%">
-      <Grid container spacing={3}>
+      <Grid container spacing={5}>
         <Grid item lg={4} md={6} xs={12}>
           <Typography variant="h6" component="div">
             ABOUT US
           </Typography>
-          <Typography variant="body1" component="div" width="80%" mt={3} mb={3}>
+          <Typography variant="body1" component="div"  mt={3} mb={3}>
             I'm a paragraph. Click here to add your own text and edit me. It’s
             easy. Just click “Edit Text” or double click me to add your own
             content and make changes to the font. Feel free to drag and drop me
@@ -81,7 +81,7 @@ const Footer = () => {
           <Typography variant="h6" component="div">
             NEW RELEASES
           </Typography>
-          <Typography variant="body1" component="div" width="80%" mt={3} mb={3}>
+          <Typography variant="body1" component="div"  mt={3} mb={3}>
             I'm a paragraph. Click here to add your own text and edit me. It’s
             easy. Just click “Edit Text” or double click me to add your own
             content and make changes to the font.
@@ -90,7 +90,7 @@ const Footer = () => {
         <Grid
           item
           lg={4}
-          md={3}
+          md={6}
           xs={12}
           style={{ display: "flex", flexDirection: "column" }}
         >
@@ -98,7 +98,7 @@ const Footer = () => {
             Subscrption
           </Typography>
 
-          <Box width="80%" mt={3} mb={2}>
+          <Box width="100%" mt={3} mb={2}>
             <TextField
               label="Email"
               helperText="Enter Your Email Here *"
@@ -110,11 +110,12 @@ const Footer = () => {
           </Box>
           <Button
             variant="contained"
-            className={classes.btn}
+           // className={classes.btn}
+            fullWidth
             style={{
               background: "#44DBBD",
               color: "white",
-              width: "80%",
+            
             }}
           >
             Subscription Now

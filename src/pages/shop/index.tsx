@@ -8,9 +8,11 @@ import { IItem } from "../../app/redux/interface";
 import { items } from "../../app/redux/constants";
 import RightDrawer from "../../shared/Drawer/rightDrawer";
 import Cart from "../cart";
-import { useDispatch, useSelector } from "react-redux";
-import { selectItems } from "../../app/redux/slices/ItemSlice";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../app/redux/slices/cartSlice";
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const useStyles: any = makeStyles({
   title: {
@@ -55,11 +57,7 @@ const Shop = () => {
   const [hoveredCart, setHoveredCart] = useState<number>(-1);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
- 
-
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
-  const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
 
   const showCartHandler = (i: number) => {
     setHoveredCart(i);
@@ -69,28 +67,19 @@ const Shop = () => {
     setHoveredCart(-1);
   };
 
-  const handleOpenCartDrawer=()=>{
+  const handleCloseCartDrawer = () => {
+    setDrawerOpen(false);
+  };
+
+  const handleAddToCart = (item: IItem) => {
     setDrawerOpen(true);
-  }
-const handleCloseCartDrawer=()=>{
-  setDrawerOpen(false);
-}
-
-const handleAddToCart = (item:IItem) => {
-  setDrawerOpen(true);
-  dispatch(addToCart(item));
-
-};
+    dispatch(addToCart(item));
+  };
   return (
     <>
       <Box className={classes.title}>
         <Box className={classes.titleBox}>
-          <Typography
-            variant={isLargeScreen ? "h4" : "h6"}
-            component="div"
-
-            //mt={isMediumScreen ? 0: 10}
-          >
+          <Typography variant={isLargeScreen ? "h4" : "h6"} component="div">
             SHOP
           </Typography>
           <Typography variant={isLargeScreen ? "h4" : "h6"} component="div">
@@ -149,7 +138,7 @@ const handleAddToCart = (item:IItem) => {
               </Typography>
               <Button
                 variant="contained"
-                onClick={()=>handleAddToCart(i)}
+                onClick={() => handleAddToCart(i)}
                 style={{
                   color: "white",
                   background: "primary",
@@ -162,7 +151,6 @@ const handleAddToCart = (item:IItem) => {
           </Grid>
         ))}
         <Grid item></Grid>
-
       </Grid>
       <RightDrawer
         open={isDrawerOpen}
@@ -170,7 +158,7 @@ const handleAddToCart = (item:IItem) => {
         onClose={handleCloseCartDrawer}
         title={` Cart`}
       >
-        <Cart isDrawer={true}/>
+        <Cart isDrawer={true} />
       </RightDrawer>
     </>
   );

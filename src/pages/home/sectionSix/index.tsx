@@ -1,7 +1,8 @@
+import { useMediaQuery } from "react-responsive";
 import LastBanner from "../../../images/lastBanner.webp";
 import { makeStyles } from "@mui/styles";
-import { Box, Typography, Button, Grid} from "@mui/material";
-import { useMediaQuery } from "react-responsive";
+import { Box, Typography, Button} from "@mui/material";
+
 
 
 const useStyles: any = makeStyles({

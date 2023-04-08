@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, Divider, Drawer, Typography } from "@mui/material";
+import { Box, Drawer, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import { useMediaQuery } from "react-responsive";
@@ -25,7 +25,6 @@ export interface IRightDrawerProps {
   onClose?: () => void;
 }
 
-const RIGHT_SIDEBAR_WIDTH = 600;
 
 const RightDrawer = ({
   open,
