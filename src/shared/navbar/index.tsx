@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { ERoutes } from "../../routes/constants";
 import { useMemo, useState } from "react";
 import Badge from "@mui/material/Badge";
-import { selectCartItems} from "../../app/redux/slices/cartSlice";
+import { selectCartItems } from "../../app/redux/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ICartItem } from "../../app/redux/interface";
 
@@ -35,9 +35,7 @@ const navItems = [
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
-
   const cartItemsData = useSelector(selectCartItems);
-
 
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
@@ -45,10 +43,9 @@ export default function DrawerAppBar(props: Props) {
     setMobileOpen((prevState) => !prevState);
   };
 
-
   const totalQuantity = useMemo(() => {
     const quantity = cartItemsData.map((i: ICartItem) => {
-      return i.itemQuantity ;
+      return i.itemQuantity;
     });
     const sum = quantity.reduce((a, b) => a + b, 0);
 
@@ -57,8 +54,8 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }} >
-        EZ 
+      <Typography variant="h6" sx={{ my: 2 }}>
+        EZ
       </Typography>
       <Divider />
       <List>
@@ -81,7 +78,6 @@ export default function DrawerAppBar(props: Props) {
           </ListItem>
         ))}
       </List>
-      
     </Box>
   );
 
@@ -135,7 +131,11 @@ export default function DrawerAppBar(props: Props) {
                   style={{ textDecoration: "none", color: "white" }}
                 >
                   {item.haseBadge ? (
-                    <Badge badgeContent={totalQuantity} color="primary" showZero>
+                    <Badge
+                      badgeContent={totalQuantity}
+                      color="primary"
+                      showZero
+                    >
                       {item.text}
                     </Badge>
                   ) : (

@@ -10,9 +10,7 @@ import RightDrawer from "../../shared/Drawer/rightDrawer";
 import Cart from "../cart";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../app/redux/slices/cartSlice";
-import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 
 const useStyles: any = makeStyles({
   title: {
